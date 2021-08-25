@@ -128,6 +128,7 @@ function createDownloadLink(blob) {
 	var url = URL.createObjectURL(blob);
 	var au = document.createElement('audio');
 	var li = document.createElement('li');
+	li.id = "li"
 	// var link = document.createElement('a');
 	var notice = document.createElement('p')
 
@@ -157,6 +158,7 @@ function createDownloadLink(blob) {
 	//upload link
 	var submitButton = document.createElement('button');
 	submitButton.className = "submit"
+	submitButton.id = "submit"
 	// このリンクなんとかしたい うまくいかない
 	submitButton.setAttribute('href', "{{url_for('index')}}");
 	// submitButton.href="#" ; 
@@ -197,7 +199,15 @@ function createDownloadLink(blob) {
 // 参考: https://stackoverflow.com/questions/60053443/return-render-template-doesnt-work-xmlhttprequest-flask
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
-			document.write(xhr.responseText);
+			//document.write(xhr.responseText);
+			recordButton.disabled = false
+			removedElement = document.getElementById("submit")
+			removedElement.remove()
+			while (recordingsList.firstChild) {
+				recordingsList.removeChild(recordingsList.firstChild);
+			  }
+			  
+			document.head.insertAdjacentHTML("beforeend", xhr.responseText)
 		}
 	}
 	var fd=new FormData();
@@ -209,7 +219,13 @@ function createDownloadLink(blob) {
 	li.appendChild(submitButton)//add the upload link to li
 
 	//add the li element to the ol
+	if(recordingsList.length){
+		recordingsList = recordingsList[recordingsList.length-1]
+		console.log(recordingsList, typeof(recordingsList))
+	}
+	console.log("hogehoge", recordingsList, typeof(recordingsList))
 	recordingsList.appendChild(li);
+	
 
 
 	// Record Again 追加
