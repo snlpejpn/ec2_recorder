@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
   </head>
   <body>
-    <img src="../static/images/your.default.jpeg" alt="example_image">
+    <img id="image" src="{{ random_image }}" alt="example_image">
     <div id="controls">
   	 <button id="recordButton">Record</button>
   	 <!-- <button id="pauseButton" disabled>Pause</button> -->
@@ -21,6 +21,10 @@
 
   	<p><strong>Recording:</strong></p>
   	<ol id="recordingsList"></ol>
+
+    <!-- 追加 -->
+    <button type="submit" method="POST">Submit</button>
+
     <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
   	<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
   	<script src="../static/js/app.js"></script>

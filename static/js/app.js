@@ -20,6 +20,7 @@ recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 // pauseButton.addEventListener("click", pauseRecording);
 
+
 function startRecording() {
 	console.log("recordButton clicked");
 
@@ -160,7 +161,6 @@ function createDownloadLink(blob) {
 	submitButton.className = "submit"
 	submitButton.id = "submit"
 	// このリンクなんとかしたい うまくいかない
-	submitButton.setAttribute('href', "{{url_for('index')}}");
 	// submitButton.href="#" ; 
 	submitButton.textContent = "Submit";
 
@@ -198,7 +198,7 @@ function createDownloadLink(blob) {
 	
 // 参考: https://stackoverflow.com/questions/60053443/return-render-template-doesnt-work-xmlhttprequest-flask
 	xhr.onreadystatechange = function() {
-		if (xhr.readyState == XMLHttpRequest.DONE) {
+		if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
 			//document.write(xhr.responseText);
 			recordButton.disabled = false
 			removedElement = document.getElementById("submit")
@@ -206,7 +206,7 @@ function createDownloadLink(blob) {
 			while (recordingsList.firstChild) {
 				recordingsList.removeChild(recordingsList.firstChild);
 			  }
-			  
+			  // document.wirte
 			document.head.insertAdjacentHTML("beforeend", xhr.responseText)
 		}
 	}
@@ -214,7 +214,15 @@ function createDownloadLink(blob) {
 	fd.append("audio_data",blob, filename);
 	xhr.open("POST","/",true);
 	xhr.send(fd);
+
+	// image src変える処理
+	
+	// const image = document.getElementById('image');
+	// console.log(image.src)
+
 	})
+	// eventlistner終わり
+
 	li.appendChild(document.createTextNode (" "))//add a space in between
 	li.appendChild(submitButton)//add the upload link to li
 
