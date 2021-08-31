@@ -208,7 +208,7 @@ function createDownloadLink(blob) {
 			  }
 			  // document.wirte
 			document.head.insertAdjacentHTML("beforeend", xhr.responseText)
-		}
+		} 
 	}
 	var fd=new FormData();
 	fd.append("audio_data",blob, filename);
